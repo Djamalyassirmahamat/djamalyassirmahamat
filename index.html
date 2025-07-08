@@ -1,0 +1,2154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title> Djamal Yassir Mahamat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- FontAwesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    :root {
+      --bleu: #1e90ff;
+      --bleu-fonce: #101b2d;
+      --bleu-lumineux: #37f3ff;
+      --gris: #222c3c;
+      --blanc: #f8fafc;
+      --ombre: 0 2px 24px #0ff5;
+      --noir: #121212;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, var(--bleu-fonce) 60%, #060e1f 100%);
+      color: var(--blanc);
+      min-height: 100vh;
+    }
+    /* Menu burger */
+    .burger {
+      position: fixed;
+      top: 22px; left: 22px;
+      z-index: 200;
+      cursor: pointer;
+      width: 44px; height: 44px;
+      display: none;
+      flex-direction: column; justify-content: center; align-items: center;
+      background: rgba(20,31,44,0.85);
+      border-radius: 50%;
+      box-shadow: var(--ombre);
+      border: 2px solid var(--bleu);
+      transition: background 0.2s;
+    }
+    .burger span {
+      display: block;
+      width: 28px; height: 4px;
+      background: var(--bleu-lumineux);
+      margin: 4px 0;
+      border-radius: 2px;
+      transition: .3s;
+    }
+    .burger.active { background: var(--bleu-lumineux); }
+    .burger.active span { background: var(--bleu-fonce);}
+    /* Navigation latérale */
+    nav {
+      position: fixed;
+      top: 0; left: 0;
+      width: 220px;
+      height: 100vh;
+      background: #111b2e;
+      box-shadow: var(--ombre);
+      z-index: 101;
+      display: flex; flex-direction: column; gap: 2em;
+      align-items: center;
+      padding-top: 90px;
+      transition: left .3s cubic-bezier(.68,-0.55,.27,1.55);
+    }
+    nav.ferme { left: -230px; }
+    .logo {
+      position: absolute; top: 28px; left: 26px;
+      font-size: 1.18em; color: var(--bleu-lumineux); font-weight: bold;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 8px #1e90ff33;
+    }
+    .lien-navigation {
+      color: var(--blanc);
+      text-decoration: none;
+      font-size: 1.13em;
+      font-weight: bold;
+      letter-spacing: 1px;
+      padding: 8px 22px;
+      border-radius: 10px;
+      transition: background .2s, color .2s;
+      border: 2px solid transparent;
+      margin: 2px 0;
+      display: block;
+      width: 90%;
+      text-align: center;
+    }
+    .lien-navigation.active, .lien-navigation:hover {
+      background: var(--bleu-lumineux);
+      color: var(--bleu-fonce);
+      border-color: var(--bleu);
+    }
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 4vw 40px 4vw;
+      margin-left: 240px;
+    }
+    section {
+      background: rgba(20,31,44, 0.97);
+      border-radius: 18px;
+      margin-bottom: 36px;
+      padding: 46px 6vw 32px 6vw;
+      box-shadow: 0 6px 36px #0a0a2a44;
+    }
+    section.heros {
+      background: linear-gradient(95deg, var(--bleu) 0 8%, var(--bleu-fonce) 60%);
+      box-shadow: 0 0 70px 12px var(--bleu) inset;
+      text-align: center;
+      border: 2px solid var(--bleu-lumineux);
+      margin-top: 0;
+    }
+    .titre-principal { font-size: 2.8rem; font-weight: bold; color: var(--bleu-lumineux); margin-bottom: 0.5em; letter-spacing:1px;}
+    .roles { font-size: 1.1rem; color: var(--bleu-lumineux); margin-bottom: 1em; min-height: 36px;}
+    /* Icônes réseaux sociaux */
+    .reseaux {
+      margin-top: 2em;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.1em;
+      justify-content: center;
+    }
+    .icone-reseau {
+      width: 40px; height: 40px;
+      background: var(--gris);
+      color: var(--bleu-lumineux);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6em;
+      box-shadow: 0 2px 10px #0003;
+      border: 2px solid var(--bleu);
+      cursor: pointer;
+      transition: background .2s, color .2s, border .2s;
+      text-decoration: none;
+    }
+    .icone-reseau:hover {
+      background: var(--bleu-lumineux);
+      color: var(--bleu-fonce);
+      border-color: var(--bleu-lumineux);
+    }
+    /* Icônes projets/applications */
+    .icones-appli {
+      display: flex;
+      gap: 1.1em;
+      flex-wrap: wrap;
+      margin-bottom: 0.7em;
+      justify-content: center;
+    }
+    .icone-appli {
+      font-size: 2.1em;
+      color: var(--bleu-lumineux);
+      background: var(--gris);
+      border-radius: 10px;
+      padding: 0.25em 0.36em;
+      box-shadow: 0 3px 12px #1e90ff44;
+      border: 1.5px solid var(--bleu);
+      transition: color .2s, background .2s;
+      cursor: pointer;
+    }
+    .icone-appli:hover { color: var(--bleu); background: var(--bleu-lumineux);}
+    /* Projets */
+    .projet {
+      margin-bottom: 2em;
+      background: #172135;
+      border-left: 4px solid var(--bleu);
+      padding: 1em 1.2em;
+      border-radius: 10px;
+      box-shadow: 0 1px 12px #0002;
+      position: relative;
+    }
+    .titre-projet {
+      color: var(--bleu-lumineux);
+      font-size: 1.12rem;
+      font-weight: bold;
+      margin-bottom: 0.45em;
+      display: flex; align-items: center; gap: 0.6em;
+    }
+    .bouton-code {
+      background: none;
+      border: 2px solid var(--bleu-lumineux);
+      color: var(--bleu-lumineux);
+      padding: 0.3em 1.05em;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border 0.2s;
+      margin-bottom: 1em;
+      margin-right: 0.7em;
+    }
+    .bouton-code:hover {
+      background: var(--bleu-lumineux);
+      color: var(--bleu-fonce);
+      border-color: var(--bleu);
+    }
+    .zone-code {
+      display: none;
+      background: #121c2a;
+      color: #55ffe6;
+      border-radius: 8px;
+      padding: 1em;
+      margin-top: 0.8em;
+      font-size: 0.98em;
+      overflow-x: auto;
+      font-family: 'Consolas', 'Menlo', monospace;
+      white-space: pre;
+      box-shadow: 0 2px 8px #0af6;
+      position: relative;
+    }
+    .zone-code.visible { display: block; }
+    .lien-visite-site {
+      color: var(--bleu-lumineux);
+      text-decoration: underline;
+      margin-left: 0.8em;
+      font-size: 1.07em;
+      transition: color 0.2s;
+    }
+    .lien-visite-site:hover { color: var(--bleu);}
+    /* Contact form */
+    .form-contact input, .form-contact textarea {
+      width: 95%;
+      padding: 0.7em;
+      background: #18253b;
+      border: 2px solid var(--bleu-lumineux);
+      color: var(--blanc);
+      border-radius: 8px;
+      margin-bottom: 1em;
+      font-size: 1em;
+      resize: none;
+      outline: none;
+      transition: border .2s;
+    }
+    .form-contact input:focus, .form-contact textarea:focus {
+      border-color: var(--bleu);
+    }
+    .form-contact button {
+      background: var(--bleu-lumineux);
+      color: var(--bleu-fonce);
+      border: none;
+      padding: 0.7em 2em;
+      border-radius: 8px;
+      font-size: 1.08em;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background .2s, color .2s;
+    }
+    .form-contact button:hover {
+      background: var(--bleu);
+      color: var(--blanc);
+    }
+   
+  .competence-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.2rem 2.8rem;
+    justify-content: center;
+    margin-top: 2.5em;
+    margin-bottom: 1em;
+  }
+  .carte-competence {
+    background: #172135;
+    border-radius: 14px;
+    box-shadow: 0 3px 18px #0af2;
+    padding: 1.2em 1.3em 0.8em 1.3em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 110px;
+    margin-bottom: 1em;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .carte-competence:hover {
+    transform: translateY(-5px) scale(1.07);
+    box-shadow: 0 6px 26px #37f3ff70;
+  }
+  .icone-appli {
+    font-size: 2.4em;
+    margin-bottom: 0.55em;
+    transition: color 0.2s;
+  }
+  .nom-competence {
+    font-size: 1.05em;
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-align: center;
+  }
+
+  @media (max-width: 600px) {
+    .competence-grid { gap: 1.3rem 1.3rem; }
+    .carte-competence { min-width: 90px; padding: 0.9em 0.8em; }
+    .icone-appli { font-size: 1.6em; }
+    .nom-competence { font-size: 0.98em; }
+  }
+
+    /* Footer réseaux sociaux */
+    .footer-reseaux {
+      display: flex; justify-content: center; gap: 1.5rem; margin: 1.5rem 0 1rem 0;
+    }
+    .footer-reseau {
+      color: var(--blanc); font-size: 2rem; transition: color 0.3s;
+    }
+    .footer-reseau:hover {color: var(--bleu);}
+    /* Responsive */
+    @media (max-width: 1100px) {
+      main { margin-left: 0; }
+      nav { left: -230px; }
+      nav.ouvert { left: 0; }
+      .burger { display: flex; }
+    }
+    @media (max-width: 700px) {
+      main { padding: 24px 1vw 24px 1vw;}
+      section {padding: 30px 3vw;}
+      .titre-principal { font-size: 1.3em;}
+      nav { width: 85vw; left: -87vw;}
+      nav.ouvert { left: 0;}
+      .logo { font-size: 1em; left: 18px;}
+    }
+  </style>
+</head>
+<body>
+  <!-- Menu burger mobile -->
+  <div class="burger" id="burger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <!-- Navigation latérale -->
+  <nav id="nav" class="ferme">
+    <span class="logo">Djamal Yassir Mahamat </span>
+    <a href="#accueil" class="lien-navigation active"><i class="fas fa-home"></i> Accueil</a>
+    <a href="#a-propos" class="lien-navigation"><i class="fas fa-user"></i> À propos</a>
+    <a href="#competences" class="lien-navigation"><i class="fas fa-code"></i> Compétences</a>
+    <a href="#projets" class="lien-navigation"><i class="fas fa-lightbulb"></i> Projets</a>
+    <a href="#liens" class="lien-navigation"><i class="fas fa-link"></i> Liens</a>
+    <a href="#contact" class="lien-navigation"><i class="fas fa-envelope"></i> Contact</a>
+  </nav>
+  <main>
+    <!-- HERO -->
+    <section id="accueil" class="heros">
+      <h1 class="titre-principal">Djamal Yassir Mahamat</h1>
+      <div class="roles" id="animation-roles"></div>
+      <img src="17.jpg" alt="Ma photo de profil" style="margin-top:1.1em;width:95px;height:95px;border-radius:50%;border:3px solid var(--bleu-lumineux);box-shadow:0 0 30px #0ff7;">
+      <div class="reseaux">
+        <a href="https://www.facebook.com/djamal.yass.79" class="icone-reseau" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.snapchat.com/add/djamal-yassir?share_id=13gKq_0U6fQ&locale=fr-TD" class="icone-reseau" target="_blank" title="Snapchat"><i class="fab fa-snapchat-ghost"></i></a>
+        <a href="https://github.com/Djamalyassirmahamat" class="icone-reseau" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/djamal-yassir-mahamat-64537a373?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="icone-reseau" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="mailto:djamalyassirmahamat@gmail.com" class="icone-reseau" title="Email"><i class="fas fa-envelope"></i></a>
+        <a href="https://www.tiktok.com/@djamalyassir?_t=ZM-8xrSeOpNsvQ&_r=1" class="icone-reseau" target="_blank" title="tiktok"><i class="fab fa-tiktok"></i></a>
+         <a href="https://t.me/DjamalYassirMahamat" class="icone-reseau" target="_blank" title="tiktok"><i class="fab fa-telegram"></i></a>
+        <a href="https://wa.me/23561169734" class="icone-reseau" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.instagram.com/yassdjamal?igsh=MThtZmhubTF2NXMxbg==" class="icone-reseau" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+    </section>
+    <section id="a-propos">
+      <h2 class="titre-section">À propos de moi</h2>
+      <div>
+        Passionné par le développement informatique, je conçois des solutions numériques innovantes en Python, C et Web. J’aime relever des défis techniques et apprendre continuellement pour améliorer mes compétences et apporter de la valeur aux projets.
+      </div>
+    </section>
+    <s<section id="competences">
+  <h2 class="titre-section">Compétences</h2>
+  <div class="competence-grid">
+    <div class="carte-competence">
+      <span class="icone-appli" style="color:#3776AB;"><i class="fab fa-python"></i></span>
+      <span class="nom-competence">Python</span>
+    </div>
+    <div class="carte-competence">
+      <span class="icone-appli" style="color:#00599C;"><i class="fas fa-c"></i></span>
+      <span class="nom-competence">Langage C</span>
+    </div>
+    <div class="carte-competence">
+      <span class="icone-appli" style="color:#e34c26;"><i class="fab fa-html5"></i></span>
+      <span class="nom-competence">HTML5</span>
+    </div>
+    <div class="carte-competence">
+      <span class="icone-appli" style="color:#1572B6;"><i class="fab fa-css3-alt"></i></span>
+      <span class="nom-competence">CSS3</span>
+    </div>
+    <div class="carte-competence">
+      <span class="icone-appli" style="color:#f7df1e;"><i class="fab fa-js"></i></span>
+      <span class="nom-competence">JavaScript</span>
+    </div>
+    <div class="carte-competence">
+      <span class="icone-appli" style="color:#24292e;"><i class="fab fa-github"></i></span>
+      <span class="nom-competence">GitHub</span>
+    </div>
+    <div class="carte-competence">
+      <span class="icone-appli" style="color:#003B57;"><i class="fas fa-database"></i></span>
+      <span class="nom-competence">SQL</span>
+    </div>
+  </div>
+</section>
+    <section id="projets">
+      <h2 class="titre-section">Mes projets réalisés</h2>
+      <div class="projet">
+        <div class="titre-projet"><i class="fab fa-python"></i> Jeu de Serpent (Python)</div>
+        <div>Un jeu de serpent avec intrrface graphoque simple gestion du score et des collisions.</div>
+        <button class="bouton-code" onclick="toggleCode(this)">Voir le code</button>
+        <pre class="zone-code"><code>
+import pygame
+import time
+import random
+pygame.init()
+white = (255, 255, 255)
+yellow = (255, 255, 102)
+black = (0, 0, 0)
+red = (213, 50, 80)
+green = (0, 255, 0)
+blue = (50, 153, 213)
+width, height = 600, 400
+display = pygame.display.set_mode((width, height))
+pygame.display.set_caption('Snake Game')
+snake_block = 10
+snake_speed = 5
+clock = pygame.time.Clock()
+def our_snake(snake_block, snake_list):
+    for x in snake_list:
+        pygame.draw.rect(display, black, [x[0], x[1], snake_block, snake_block])
+def game_loop():
+    game_over = False
+    game_close = False
+    x1 = width / 2
+    y1 = height / 2
+    x1_change = 0
+    y1_change = 0
+    snake_list = []
+    length_of_snake = 1
+    foodx = round(random.randrange(0, width - snake_block) / 10.0) * 10.0
+    foody = round(random.randrange(0, height - snake_block) / 10.0) * 10.0
+    while not game_over:
+        while game_close == True:
+            display.fill(blue)
+            font_style = pygame.font.SysFont("bahnschrift", 25)
+            mesg = font_style.render("You Lost! Press C-Play Again or Q-Quit", True, red)
+            display.blit(mesg, [width / 6, height / 3])
+            pygame.display.update()
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_q:
+                        game_over = True
+                        game_close = False
+                    if event.key == pygame.K_c:
+                        game_loop()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                game_over = True
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    x1_change = -snake_block
+                    y1_change = 0
+                elif event.key == pygame.K_RIGHT:
+                    x1_change = snake_block
+                    y1_change = 0
+                elif event.key == pygame.K_UP:
+                    y1_change = -snake_block
+                    x1_change = 0
+                elif event.key == pygame.K_DOWN:
+                    y1_change = snake_block
+                    x1_change = 0
+        if x1 >= width or x1 < 0 or y1 >= height or y1 < 0:
+            game_close = True
+        x1 += x1_change
+        y1 += y1_change
+        display.fill(blue)
+        pygame.draw.rect(display, green, [foodx, foody, snake_block, snake_block])
+        snake_head = []
+        snake_head.append(x1)
+        snake_head.append(y1)
+        snake_list.append(snake_head)
+        if len(snake_list) > length_of_snake:
+            del snake_list[0]
+        for x in snake_list[:-1]:
+            if x == snake_head:
+                game_close = True
+        our_snake(snake_block, snake_list)
+        pygame.display.update()
+        if x1 == foodx and y1 == foody:
+            foodx = round(random.randrange(0, width - snake_block) / 10.0) * 10.0
+            foody = round(random.randrange(0, height - snake_block) / 10.0) * 10.0
+            length_of_snake += 1
+        clock.tick(snake_speed)
+    pygame.quit()
+    quit()
+game_loop()
+        </code></pre>
+      </div>
+      <div class="projet">
+        <div class="titre-projet"><i class="fab fa-python"></i> Calendrier Annuel (Python)</div>
+        <div>Affiche le calendrier de l'année saisie par l'utilisateur.</div>
+        <button class="bouton-code" onclick="toggleCode(this)">Voir le code</button>
+        <pre class="zone-code"><code>
+#Calendrier de l"année 2025
+import calendar
+yy=int(input("Le calendrier de quelle annee souhitez-vous afficher?\n"))
+for i in range(1, 13):
+    mm=i
+    print(calendar.month(yy, mm))
+
+        </code></pre>
+      </div>
+      <div class="projet">
+        <div class="titre-projet"><i class="fab fa-python"></i> Orientation depuis la Seconde (Python)</div>
+        <div>Script d’aide à l’orientation après la seconde selon les choix de l’utilisateur en mode console.</div>
+        <button class="bouton-code" onclick="toggleCode(this)">Voir le code</button>
+        <pre class="zone-code"><code>
+# Projet de l'orientation réalisé par: Djamal Yassir Mahamat et Hamid Cherif Mahamat Zene
+
+# L'élève est de quelle classe
+
+print("Vous voulez saisir les notes de 2nd L ou 2nd S ?")
+
+while True:
+    seconde=input()
+    if seconde=="S" or seconde=="s" or seconde=="l" or seconde=="L" :
+        break
+    print("Pour la seconde S il faut saisir S ou s et pour la seconde L il faut saisir L ou l.")
+
+
+# Détermination de l'orientation de l'élève
+
+#Pour le cas de 2nd S
+if seconde=="S" or seconde=="s" :
+    print("Veillez saisir les notes de la seconde scientifique")
+
+    # Initialisation des variables pour les moyennes et les coefficients totaux
+    moyenne_scientifique_1 = 0
+    coeff_total_scientifique_1 = 0
+    moyenne_litteraire_1 = 0
+    coeff_total_litteraire_1 = 0
+
+    # Demander les notes et coefficients de la 2nde S
+    print()
+    print("Saisissez les notes des matières scientifiques pour la Seconde Scientifique :")
+
+    # Redemander les mêmes notes et coefficients pour la 2nde S
+    while True:
+        note_math_1 = float(input("Note en Mathématiques : "))
+        if 0 <= note_math_1 <= 20:
+            break
+        print("Erreur : La note doit être entre 0 et 20.")
+    while True:
+        coeff_math_1 = int(input("Coefficient en Mathématiques : "))
+        if coeff_math_1 > 0:
+            break
+        print("Erreur : Le coefficient doit être un nombre positif.")
+    moyenne_scientifique_1 += note_math_1 * coeff_math_1
+    coeff_total_scientifique_1 += coeff_math_1
+
+    while True:
+        note_physique_1 = float(input("Note en Physique-Chimie : "))
+        if 0 <= note_physique_1 <= 20:
+            break
+        print("Erreur : La note doit être entre 0 et 20.")
+    while True:
+        coeff_physique_1 = int(input("Coefficient en Physique-Chimie : "))
+        if coeff_physique_1 > 0:
+            break
+        print("Erreur : Le coefficient doit être un nombre positif.")
+    moyenne_scientifique_1 += note_physique_1 * coeff_physique_1
+    coeff_total_scientifique_1 += coeff_physique_1
+
+    while True:
+        note_svt_1 = float(input("Note en SVT : "))
+        if 0 <= note_svt_1 <= 20:
+            break
+        print("Erreur : La note doit être entre 0 et 20.")
+    while True:
+        coeff_svt_1 = int(input("Coefficient en SVT : "))
+        if coeff_svt_1 > 0:
+            break
+        print("Erreur : Le coefficient doit être un nombre positif.")
+    moyenne_scientifique_1 += note_svt_1 * coeff_svt_1
+    coeff_total_scientifique_1 += coeff_svt_1
+
+    # Calcul de la moyenne scientifique
+    moyenne_scientifique_1 /= coeff_total_scientifique_1
+    moyenne_scientifique_1 = round(moyenne_scientifique_1, 2)
+
+    # Saisie des notes et coefficients pour les matières littéraires pour la seconde S
+    print()
+    print("Saisissez les notes des matières littéraires pour la seconde scientifique :")
+
+    # Matière Français
+    while True:
+        note_francais_1 = float(input("Note en Français : "))
+        if 0 <= note_francais_1 <= 20:
+            break
+        print("Erreur : La note doit être entre 0 et 20.")
+    while True:
+        coeff_francais_1 = int(input("Coefficient en Français : "))
+        if coeff_francais_1 > 0:
+            break
+        print("Erreur : Le coefficient doit être un nombre positif.")
+    moyenne_litteraire_1 += note_francais_1 * coeff_francais_1
+    coeff_total_litteraire_1 += coeff_francais_1
+
+    # Matière Histoire et geographie
+    while True:
+        note_histoire_1 = float(input("Note en Histoire-geographie : "))
+        if 0 <= note_histoire_1 <= 20:
+            break
+        print("Erreur : La note doit être entre 0 et 20.")
+    while True:
+        coeff_histoire_1 = int(input("Coefficient en Histoire-geographie : "))
+        if coeff_histoire_1 > 0:
+            break
+        print("Erreur : Le coefficient doit être un nombre positif.")
+    moyenne_litteraire_1 += note_histoire_1 * coeff_histoire_1
+    coeff_total_litteraire_1 += coeff_histoire_1
+
+    # Matière Langue Vivante
+    while True:
+        note_langue_1 = float(input("Note en Langue Vivante : "))
+        if 0 <= note_langue_1 <= 20:
+            break
+        print("Erreur : La note doit être entre 0 et 20.")
+    while True:
+        coeff_langue_1 = int(input("Coefficient en Langue Vivante : "))
+        if coeff_langue_1 > 0:
+            break
+        print("Erreur : Le coefficient doit être un nombre positif.")
+    moyenne_litteraire_1 += note_langue_1 * coeff_langue_1
+    coeff_total_litteraire_1 += coeff_langue_1
+
+    # Calcul de la moyenne littéraire
+    moyenne_litteraire_1 /= coeff_total_litteraire_1
+    moyenne_litteraire_1 = round(moyenne_litteraire_1, 2)
+
+    # Calcul de la moyenne générale
+    moyenne_generale_1 = (moyenne_scientifique_1 + moyenne_litteraire_1) / 2
+    moyenne_generale_1 = round(moyenne_generale_1, 2)
+
+    # Affichage des résultats
+    print()
+    print("Moyenne Scientifique : ", moyenne_scientifique_1)
+    print("Moyenne Littéraire : ", moyenne_litteraire_1)
+    print("Moyenne Générale : ", moyenne_generale_1)
+
+    # Si la moyenne générale est inférieure à 12 et la MS<ML, l'élève est réorienté vers la 1ère Littéraire
+    if moyenne_generale_1 < 12 and moyenne_scientifique_1 < moyenne_litteraire_1 :
+        print()
+        print("L'élève est réorienté vers la Première Littéraire.")
+
+        #On doit coller ici la partie de 1ere L
+
+        # Initialisation des variables pour les moyennes et les coefficients totaux
+        moyenne_scientifique_4 = 0
+        coeff_total_scientifique_4 = 0
+        moyenne_litteraire_4 = 0
+        coeff_total_litteraire_4 = 0
+
+        print()
+        print("L'élève est admis avec succès en classe de Première Littéraire.")
+        print()
+        print("Saisissez les notes des matières scientifiques pour la prémière litteraire :")
+
+        # Redemander les mêmes notes et coefficients pour la 1ère L
+        while True:
+            note_math_4 = float(input("Note en Mathématiques : "))
+            if 0 <= note_math_4 <= 20:
+                break
+            print("Erreur : La note doit être entre 0 et 20.")
+        while True:
+            coeff_math_4 = int(input("Coefficient en Mathématiques : "))
+            if coeff_math_4 > 0:
+                break
+            print("Erreur : Le coefficient doit être un nombre positif.")
+        moyenne_scientifique_4 += note_math_4 * coeff_math_4
+        coeff_total_scientifique_4 += coeff_math_4
+
+        while True:
+            note_physique_4 = float(input("Note en Physique-Chimie : "))
+            if 0 <= note_physique_4 <= 20:
+                break
+            print("Erreur : La note doit être entre 0 et 20.")
+        while True:
+            coeff_physique_4 = int(input("Coefficient en Physique-Chimie : "))
+            if coeff_physique_4 > 0:
+                break
+            print("Erreur : Le coefficient doit être un nombre positif.")
+        moyenne_scientifique_4 += note_physique_4 * coeff_physique_4
+        coeff_total_scientifique_4 += coeff_physique_4
+
+        while True:
+            note_svt_4 = float(input("Note en SVT : "))
+            if 0 <= note_svt_4 <= 20:
+                break
+            print("Erreur : La note doit être entre 0 et 20.")
+        while True:
+            coeff_svt_4 = int(input("Coefficient en SVT : "))
+            if coeff_svt_4 > 0:
+                break
+            print("Erreur : Le coefficient doit être un nombre positif.")
+        moyenne_scientifique_4 += note_svt_4 * coeff_svt_4
+        coeff_total_scientifique_4 += coeff_svt_4
+
+        # Calcul de la moyenne scientifique
+        moyenne_scientifique_4 /= coeff_total_scientifique_4
+        moyenne_scientifique_4 = round(moyenne_scientifique_4, 2)
+
+        # Saisie des notes et coefficients pour les matières littéraires pour la 1ère L
+        print()
+        print("Saisissez les notes des matières littéraires pour la première littéraire :")
+
+        # Matière Français
+        while True:
+            note_francais_4 = float(input("Note en Français : "))
+            if 0 <= note_francais_4 <= 20:
+                break
+            print("Erreur : La note doit être entre 0 et 20.")
+        while True:
+            coeff_francais_4 = int(input("Coefficient en Français : "))
+            if coeff_francais_4 > 0:
+                break
+            print("Erreur : Le coefficient doit être un nombre positif.")
+        moyenne_litteraire_4 += note_francais_4 * coeff_francais_4
+        coeff_total_litteraire_4 += coeff_francais_4
+
+        # Matière Histoire et geographie
+        while True:
+            note_histoire_4 = float(input("Note en Histoire-geographie : "))
+            if 0 <= note_histoire_4 <= 20:
+                break
+            print("Erreur : La note doit être entre 0 et 20.")
+        while True:
+            coeff_histoire_4 = int(input("Coefficient en Histoire-geographie: "))
+            if coeff_histoire_4 > 0:
+                break
+            print("Erreur : Le coefficient doit être un nombre positif.")
+        moyenne_litteraire_4 += note_histoire_4 * coeff_histoire_4
+        coeff_total_litteraire_4 += coeff_histoire_4
+
+        # Matière philosophie
+        while True:
+            note_philo_4 = float(input("Note en Philosophie : "))
+            if 0 <= note_philo_4 <= 20:
+                break
+            print("Erreur : La note doit être entre 0 et 20.")
+        while True:
+            coeff_philo_4 = int(input("Coefficient en Philosophie : "))
+            if coeff_philo_4 > 0:
+                break
+            print("Erreur : Le coefficient doit être un nombre positif.")
+        moyenne_litteraire_4 += note_philo_4 * coeff_philo_4
+        coeff_total_litteraire_4 += coeff_philo_4
+
+        # Matière Langue Vivante
+        while True:
+            note_langue_4 = float(input("Note en Langue Vivante : "))
+            if 0 <= note_langue_4 <= 20:
+                break
+            print("Erreur : La note doit être entre 0 et 20.")
+        while True:
+            coeff_langue_4 = int(input("Coefficient en Langue Vivante : "))
+            if coeff_langue_4 > 0:
+                break
+            print("Erreur : Le coefficient doit être un nombre positif.")
+        moyenne_litteraire_4 += note_langue_4 * coeff_langue_4
+        coeff_total_litteraire_4 += coeff_langue_4
+
+        # Calcul de la moyenne littéraire
+        moyenne_litteraire_4 /= coeff_total_litteraire_4
+        moyenne_litteraire_4 = round(moyenne_litteraire_4, 2)
+
+        # Calcul de la moyenne générale
+        moyenne_generale_4 = (moyenne_scientifique_4 + moyenne_litteraire_4) / 2
+        moyenne_generale_4 = round(moyenne_generale_4, 2)
+
+        # Affichage des résultats
+        print()
+        print("Moyenne Générale : ", moyenne_generale_4)
+
+        # Pour le cas de TA4
+
+        if moyenne_generale_4 >= 10:
+            print()
+            print("L'élève est admis avec succès en classe de terminale A4.")
+
+            # Initialisation des variables pour les moyennes et les coefficients totaux
+
+            moyenne_gen_a = 0
+            coeff_gen = 0
+            # Demander les notes et coefficients de la 2nde S
+            print()
+            print("Saisissez les notes du baccalaureat serie A :")
+
+            # Mathématique
+            while True:
+                note_math_a = float(input("Note en Mathématiques : "))
+                if 0 <= note_math_a <= 20:
+                    break
+                print("Erreur : La note doit être entre 0 et 20.")
+            coeff_math_a = 2
+            # moyenne_scientifique_a += note_math_a * coeff_math_a
+            # coeff_total_scientifique_a += coeff_math_a
+            moyenne_gen_a = note_math_a * coeff_math_a
+            coeff_gen += coeff_math_a
+
+            # Philosophie
+            while True:
+                note_philo_a = float(input("Note en Philosophie : "))
+                if 0 <= note_philo_a <= 20:
+                    break
+                print("Erreur : La note doit être entre 0 et 20.")
+            coeff_philo_a = 4
+            moyenne_gen_a += note_philo_a * coeff_philo_a
+            coeff_gen += coeff_philo_a
+
+            # Matière Français
+            while True:
+                note_francais_a = float(input("Note en Français : "))
+                if 0 <= note_francais_a <= 20:
+                    break
+                print("Erreur : La note doit être entre 0 et 20.")
+            coeff_francais_a = 4
+            moyenne_gen_a += note_francais_a * coeff_francais_a
+            coeff_gen += coeff_francais_a
+
+            # Matière Histoire et geo
+            while True:
+                note_histoire_a = float(input("Note en Histoire-geographie : "))
+                if 0 <= note_histoire_a <= 20:
+                    break
+                print("Erreur : La note doit être entre 0 et 20.")
+            coeff_histoire_a = 4
+            moyenne_gen_a += note_histoire_a * coeff_histoire_a
+            coeff_gen += coeff_histoire_a
+
+            # Matière Langue Vivante
+            while True:
+                note_langue_a = float(input("Note en Langue Vivante : "))
+                if 0 <= note_langue_a <= 20:
+                    break
+                print("Erreur : La note doit être entre 0 et 20.")
+            coeff_langue_a = 4
+            moyenne_gen_a += note_langue_a * coeff_langue_a
+            coeff_gen += coeff_langue_a
+
+            # Calcul de la moyenne générale
+            moyenne_generale_a = moyenne_gen_a / coeff_gen
+            moyenne_generale_a = round(moyenne_generale_a, 2)
+            print()
+            print("Moyenne Générale : ", moyenne_generale_a)
+
+            # Pour les cas de filières litteraires
+            if moyenne_gen_a >= 10:
+                print()
+                if (note_histoire_a >= 12 and note_philo_a >= 10 and note_math_a >= 10):
+                    print("Departement de Geographie")
+                if (note_histoire_a >= 12 and note_philo_a >= 10 and note_francais_a >= 10):
+                    print("Departement d'Histoire.")
+                if (note_philo_a >= 12 and note_francais_a >= 10 and note_histoire_a >= 10):
+                    print("Departement de Philosophie.")
+                if (note_francais_a >= 10 and note_philo_a >= 10 and note_histoire_a >= 10):
+                    print("Departement de Sociologie ou anthropologie")
+                if (note_philo_a >= 12 and note_francais_a >= 12 and note_histoire_a >= 12):
+                    print("Departement de Droit ou Science Politique")
+                if (note_math_a >= 13 and note_francais_a >= 11 and note_langue_a >= 11):
+                    print("Departement de Gestion ou Economie")
+                if (note_francais_a >= 12 and note_philo_a >= 10 and note_langue_a >= 10):
+                    print(
+                        "Departments science du languages ou lettre moderne ou techniques d'information et de communication")
+                if (note_francais_a >= 14 and note_philo_a >= 12 and note_langue_a >= 12 and note_math_a >= 9):
+                    print(
+                        "Department de planification de l'education ou curicula didactique ou psychologie ou education")
+            else:
+                print("l'élève est admis a redoubler")
+        else:
+            print("L'élève est admis a redoubler.")
+
+    #Pour le cas de 1ère S
+    elif (moyenne_generale_1 >= 10 and moyenne_scientifique_1 > moyenne_litteraire_1) or moyenne_generale_1 >= 12 :
+        print()
+        print("L'élève est admis avec succès en première scientifique.")
+
+        # Initialisation des variables pour les moyennes et les coefficients totaux
+        moyenne_scientifique_3 = 0
+        coeff_total_scientifique_3 = 0
+        moyenne_litteraire_3 = 0
+        coeff_total_litteraire_3 = 0
+
+        # Redemander les mêmes notes et coefficients pour la 1ère S
+        print()
+        print("Saisissez les notes des matières scientifiques pour la 1ère S :")
+        while True:
+            note_math_3 = float(input("Note en Mathématiques : "))
+            if 0 <= note_math_3 <= 20:
+                break
+            print("Erreur : La note doit être entre 0 et 20.")
+        while True:
+            coeff_math_3 = int(input("Coefficient en Mathématiques : "))
+            if coeff_math_3 > 0:
+                break
+            print("Erreur : Le coefficient doit être un nombre positif.")
+        moyenne_scientifique_3 += note_math_3 * coeff_math_3
+        coeff_total_scientifique_3 += coeff_math_3
+
+        while True:
+            note_physique_3 = float(input("Note en Physique-Chimie : "))
+            if 0 <= note_physique_3 <= 20:
+                break
+            print("Erreur : La note doit être entre 0 et 20.")
+        while True:
+            coeff_physique_3 = int(input("Coefficient en Physique-Chimie : "))
+            if coeff_physique_3 > 0:
+                break
+            print("Erreur : Le coefficient doit être un nombre positif.")
+        moyenne_scientifique_3 += note_physique_3 * coeff_physique_3
+        coeff_total_scientifique_3 += coeff_physique_3
+
+        while True:
+            note_svt_3 = float(input("Note en SVT : "))
+            if 0 <= note_svt_3 <= 20:
+                break
+            print("Erreur : La note doit être entre 0 et 20.")
+        while True:
+            coeff_svt_3 = int(input("Coefficient en SVT : "))
+            if coeff_svt_3 > 0:
+                break
+            print("Erreur : Le coefficient doit être un nombre positif.")
+        moyenne_scientifique_3 += note_svt_3 * coeff_svt_3
+        coeff_total_scientifique_3 += coeff_svt_3
+
+        # Calcul de la moyenne scientifique
+        moyenne_scientifique_3 /= coeff_total_scientifique_3
+        moyenne_scientifique_3 = round(moyenne_scientifique_3, 2)
+
+        # Saisie des notes et coefficients pour les matières littéraires pour la 1ère S
+        print()
+        print("Saisissez les notes des matières littéraires pour la prémière scientifique :")
+
+        # Matière Français
+        while True:
+            note_francais_3 = float(input("Note en Français : "))
+            if 0 <= note_francais_3 <= 20:
+                break
+            print("Erreur : La note doit être entre 0 et 20.")
+        while True:
+            coeff_francais_3 = int(input("Coefficient en Français : "))
+            if coeff_francais_3 > 0:
+                break
+            print("Erreur : Le coefficient doit être un nombre positif.")
+        moyenne_litteraire_3 += note_francais_3 * coeff_francais_3
+        coeff_total_litteraire_3 += coeff_francais_3
+
+        # Matière Histoire et geographie
+        while True:
+            note_histoire_3 = float(input("Note en Histoire-geographie : "))
+            if 0 <= note_histoire_3 <= 20:
+                break
+            print("Erreur : La note doit être entre 0 et 20.")
+        while True:
+            coeff_histoire_3 = int(input("Coefficient en Histoire-geographie : "))
+            if coeff_histoire_3 > 0:
+                break
+            print("Erreur : Le coefficient doit être un nombre positif.")
+        moyenne_litteraire_3 += note_histoire_3 * coeff_histoire_3
+        coeff_total_litteraire_3 += coeff_histoire_3
+
+        # Matière philosophie
+        while True:
+            note_philo_3 = float(input("Note en Philosophie : "))
+            if 0 <= note_philo_3 <= 20:
+                break
+            print("Erreur : La note doit être entre 0 et 20.")
+        while True:
+            coeff_philo_3 = int(input("Coefficient en Philosophie : "))
+            if coeff_philo_3 > 0:
+                break
+            print("Erreur : Le coefficient doit être un nombre positif.")
+        moyenne_litteraire_3 += note_philo_3 * coeff_philo_3
+        coeff_total_litteraire_3 += coeff_philo_3
+
+        # Matière Langue Vivante
+        while True:
+            note_langue_3 = float(input("Note en Langue Vivante : "))
+            if 0 <= note_langue_3 <= 20:
+                break
+            print("Erreur : La note doit être entre 0 et 20.")
+        while True:
+            coeff_langue_3 = int(input("Coefficient en Langue Vivante : "))
+            if coeff_langue_3 > 0:
+                break
+            print("Erreur : Le coefficient doit être un nombre positif.")
+        moyenne_litteraire_3 += note_langue_3 * coeff_langue_3
+        coeff_total_litteraire_3 += coeff_langue_3
+
+        # Calcul de la moyenne littéraire
+        moyenne_litteraire_3 /= coeff_total_litteraire_3
+        moyenne_litteraire_3 = round(moyenne_litteraire_3, 2)
+
+        # Calcul de la moyenne générale
+        moyenne_generale_3 = (moyenne_scientifique_3 + moyenne_litteraire_3) / 2
+        moyenne_generale_3 = round(moyenne_generale_3, 2)
+
+        # Affichage des résultats
+        print()
+        print("Moyenne Scientifique : ", moyenne_scientifique_3)
+        print("Moyenne Littéraire : ", moyenne_litteraire_3)
+        print("Moyenne Générale : ", moyenne_generale_3)
+
+        # Si la moyenne générale est inférieure à 12 et la MS<ML, l'élève est réorienté vers TA4
+        if moyenne_generale_3 < 12 and moyenne_scientifique_3 < moyenne_litteraire_3:
+            print()
+            print("L'élève est réorienté vers terminale littéraire.")
+
+            #Le cas de Tle A4
+            # Initialisation des variables pour les moyennes et les coefficients totaux
+            moyenne_gen_a = 0
+            coeff_gen = 0
+
+            # Demander les notes du baccalaureat A4
+            print()
+            print("Saisissez les notes du baccalaureat serie A :")
+
+            # Mathématique
+            while True:
+                note_math_a = float(input("Note en Mathématiques : "))
+                if 0 <= note_math_a <= 20:
+                    break
+                print("Erreur : La note doit être entre 0 et 20.")
+            coeff_math_a = 2
+            moyenne_gen_a = note_math_a * coeff_math_a
+            coeff_gen += coeff_math_a
+
+            # Philosophie
+            while True:
+                note_philo_a = float(input("Note en Philosophie : "))
+                if 0 <= note_philo_a <= 20:
+                    break
+                print("Erreur : La note doit être entre 0 et 20.")
+            coeff_philo_a = 4
+            moyenne_gen_a += note_philo_a * coeff_philo_a
+            coeff_gen += coeff_philo_a
+
+            # Français
+            while True:
+                note_francais_a = float(input("Note en Français : "))
+                if 0 <= note_francais_a <= 20:
+                    break
+                print("Erreur : La note doit être entre 0 et 20.")
+            coeff_francais_a = 4
+            moyenne_gen_a += note_francais_a * coeff_francais_a
+            coeff_gen += coeff_francais_a
+
+            # Histoire et geo
+            while True:
+                note_histoire_a = float(input("Note en Histoire-geographie : "))
+                if 0 <= note_histoire_a <= 20:
+                    break
+                print("Erreur : La note doit être entre 0 et 20.")
+            coeff_histoire_a = 4
+            moyenne_gen_a += note_histoire_a * coeff_histoire_a
+            coeff_gen += coeff_histoire_a
+
+            # Matière Langue Vivante
+            while True:
+                note_langue_a = float(input("Note en Langue Vivante : "))
+                if 0 <= note_langue_a <= 20:
+                    break
+                print("Erreur : La note doit être entre 0 et 20.")
+            coeff_langue_a = 4
+            moyenne_gen_a += note_langue_a * coeff_langue_a
+            coeff_gen += coeff_langue_a
+
+            # Calcul de la moyenne générale
+            moyenne_generale_a = moyenne_gen_a / coeff_gen
+            moyenne_generale_a = round(moyenne_generale_a, 2)
+            print()
+            print("Moyenne Générale : ", moyenne_generale_a)
+
+            # les orientations de filiere A4
+            if moyenne_gen_a >= 10:
+                print()
+                if (note_histoire_a >= 12 and note_philo_a >= 10 and note_math_a >= 10):
+                    print("Departement de Geographie")
+                if (note_histoire_a >= 12 and note_philo_a >= 10 and note_francais_a >= 10):
+                    print("Departement d'Histoire.")
+                if (note_philo_a >= 12 and note_francais_a >= 10 and note_histoire_a >= 10):
+                    print("Departement de Philosophie")
+                if (note_francais_a >= 10 and note_philo_a >= 10 and note_histoire_a >= 10):
+                    print("Departement de Sociologie ou anthropologie")
+                if (note_philo_a >= 12 and note_francais_a >= 12 and note_histoire_a >= 12):
+                    print("Departement de Droit ou Science Politique")
+                if (note_math_a >= 13 and note_francais_a >= 11 and note_langue_a >= 11):
+                    print("Departement de Gestion ou Economie")
+                if (note_francais_a >= 12 and note_philo_a >= 10 and note_langue_a >= 10):
+                    print("Departments science du languages ou lettre moderne ou techniques d'information et de communication")
+                if (note_francais_a >= 14 and note_philo_a >= 12 and note_langue_a >= 12 and note_math_a >= 9):
+                    print("Department de planification de l'education ou curicula didactique ou psychologie ou education")
+            else:
+                print("l'eleve est admis a redoubler")
+
+        #Pour le cas de terminale D
+        elif moyenne_generale_3 >=10 and moyenne_scientifique_3 > moyenne_litteraire_3 or 12<= moyenne_generale_3 < 15 :
+            print()
+            print("L'élève est admis avec succès en terminale D.")
+
+            #Pour le cas de Tle D
+            # Initialisation des variables pour les moyennes et les coefficients totaux
+            moyenne_scientifique_d = 0
+            coeff_total_scientifique_d = 0
+            moyenne_litteraire_d = 0
+            coeff_total_litteraire_d = 0
+
+            # Demander les notes du bac D
+            print()
+            print("Saisissez les notes du baccalaureat serie D :")
+
+            # Mathématique
+            while True:
+                note_math_d = float(input("Note en Mathématiques : "))
+                if 0 <= note_math_d <= 20:
+                    break
+                print("Erreur : La note doit être entre 0 et 20.")
+            coeff_math_d = 4
+            moyenne_scientifique_d += note_math_d * coeff_math_d
+            coeff_total_scientifique_d += coeff_math_d
+
+            # Physique-Chimie
+            while True:
+                note_physique_d = float(input("Note en Physique-Chimie : "))
+                if 0 <= note_physique_d <= 20:
+                    break
+                print("Erreur : La note doit être entre 0 et 20.")
+            coeff_physique_d = 3
+            moyenne_scientifique_d += note_physique_d * coeff_physique_d
+            coeff_total_scientifique_d += coeff_physique_d
+
+            # S V T
+            while True:
+                note_svt_d = float(input("Note en SVT : "))
+                if 0 <= note_svt_d <= 20:
+                    break
+                print("Erreur : La note doit être entre 0 et 20.")
+            coeff_svt_d = 4
+            moyenne_scientifique_d += note_svt_d * coeff_svt_d
+            coeff_total_scientifique_d += coeff_svt_d
+
+            # Calcul de la moyenne scientifi9que
+            moyenne_scientifique_d /= coeff_total_scientifique_d
+            moyenne_scientifique_d = round(moyenne_scientifique_d, 2)
+
+            # Matière Français ou philosophie
+            while True:
+                note_francais_d = float(input("Note en Français ou philosophie : "))
+                if 0 <= note_francais_d <= 20:
+                    break
+                print("Erreur : La note doit être entre 0 et 20.")
+            coeff_francais_d = 3
+            moyenne_litteraire_d += note_francais_d * coeff_francais_d
+            coeff_total_litteraire_d += coeff_francais_d
+
+            # Matière Histoire et geo
+            while True:
+                note_histoire_d = float(input("Note en Histoire-geographie : "))
+                if 0 <= note_histoire_d <= 20:
+                    break
+                print("Erreur : La note doit être entre 0 et 20.")
+            coeff_histoire_d = 2
+            moyenne_litteraire_d += note_histoire_d * coeff_histoire_d
+            coeff_total_litteraire_d += coeff_histoire_d
+
+            # Matière Langue Vivante
+            while True:
+                note_langue_d = float(input("Note en Langue Vivante : "))
+                if 0 <= note_langue_d <= 20:
+                    break
+                print("Erreur : La note doit être entre 0 et 20.")
+            coeff_langue_d = 2
+            moyenne_litteraire_d += note_langue_d * coeff_langue_d
+            coeff_total_litteraire_d += coeff_langue_d
+
+            # Calcul de la moyenne littéraire
+            moyenne_litteraire_d /= coeff_total_litteraire_d
+            moyenne_litteraire_d = round(moyenne_litteraire_d, 2)
+
+            # Calcul de la moyenne générale
+            moyenne_generale_d = (moyenne_scientifique_d + moyenne_litteraire_d) / 2
+            moyenne_generale_d = round(moyenne_generale_d, 2)
+
+            # Affichage des résultats
+            print()
+            print("Moyenne Scientifique : ", moyenne_scientifique_d)
+            print("Moyenne Littéraire : ", moyenne_litteraire_d)
+            print("Moyenne Générale : ", moyenne_generale_d)
+
+            #Les orientations de filiere D
+
+            if moyenne_generale_d >= 10:
+                print()
+                print("Pour le compte de filiere scientifique :")
+                print()
+                if (note_math_d >= 12 and note_physique_d >= 12 and note_svt_d >= 12):
+                    print("Departement de la medecine ou pharmacie.")
+                if (note_math_d >= 14 and note_physique_d >= 14):
+                    print("Departement de math-info.")
+                if (note_math_d >= 12 and note_physique_d >= 14 and note_francais_d >= 10):
+                    print("Departement de Physique-chimie")
+                if (note_math_d >= 14 and note_physique_d >= 14 and note_langue_d >= 10):
+                    print("Departements de Sciences Techniques")
+                if (note_svt_d >= 14 and note_francais_d >= 10 and note_langue_d >= 9):
+                    print("Departement de Biologie.")
+                if (note_math_d >= 16 and note_physique_d >= 16):
+                    print("Departement de l'aviation civile")
+
+            if moyenne_generale_d >= 10:
+                print()
+                print("Pour le compte de filiere litteraire :")
+                print()
+                if (note_histoire_d >= 12 and note_francais_d >= 10):
+                    print("Departement de Geographie")
+                if (note_histoire_d >= 12 and note_francais_d >= 10):
+                    print("Departement d'Histoire.")
+                if (note_francais_d >= 12 and note_histoire_d >= 10):
+                    print("Department de Philo")
+                if (note_francais_d >= 10 and note_histoire_d >= 10):
+                    print("Department de Sociologie ou antropologie")
+                if (note_francais_d >= 12 and note_histoire_d >= 12):
+                    print("Department de Doit ou Science Politique")
+                if (note_francais_d >= 11 and note_langue_d >= 11):
+                    print("Departement de Gestion ou Economie")
+                if (note_francais_d >= 12 and note_langue_d >= 10):
+                    print(
+                        "Departments science du languages ou lettre moderne ou techniques d'information et de communication")
+                if (note_francais_d >= 14 and note_langue_d >= 12):
+                    print(
+                        "Department de planification de l'education ou curicula didactique ou psychologie ou education")
+            else:
+                print("l'eleve est admis a redoubler")
+
+
+
+        # Pour le cas de terminale C
+        elif moyenne_generale_3 >=15 and moyenne_scientifique_3 > moyenne_litteraire_3:
+            print("L'élève est admis avec succès en terminale C.")
+
+            # Initialisation des variables pour les moyennes et les coefficients totaux
+            moyenne_scientifique_c = 0
+            coeff_total_scientifique_c = 0
+            moyenne_litteraire_c = 0
+            coeff_total_litteraire_c = 0
+
+            # Demander les notes pour le baccalaureat serie C
+            print()
+            print("Saisissez les notes du baccalaureat serie C :")
+
+            # Mathématique
+            while True:
+                note_math_c = float(input("Note en Mathématiques : "))
+                if 0 <= note_math_c <= 20:
+                    break
+                print("Erreur : La note doit être entre 0 et 20.")
+            coeff_math_c = 5
+            moyenne_scientifique_c += note_math_c * coeff_math_c
+            coeff_total_scientifique_c += coeff_math_c
+
+            # Physique-Chimie
+            while True:
+                note_physique_c = float(input("Note en Physique-Chimie : "))
+                if 0 <= note_physique_c <= 20:
+                    break
+                print("Erreur : La note doit être entre 0 et 20.")
+            coeff_physique_c = 5
+            moyenne_scientifique_c += note_physique_c * coeff_physique_c
+            coeff_total_scientifique_c += coeff_physique_c
+
+            # S V T
+            while True:
+                note_svt_c = float(input("Note en SVT : "))
+                if 0 <= note_svt_c <= 20:
+                    break
+                print("Erreur : La note doit être entre 0 et 20.")
+            coeff_svt_c = 2
+            moyenne_scientifique_c += note_svt_c * coeff_svt_c
+            coeff_total_scientifique_c += coeff_svt_c
+
+            # Calcul de la moyenne scientifique
+            moyenne_scientifique_c /= coeff_total_scientifique_c
+            moyenne_scientifique_c = round(moyenne_scientifique_c, 2)
+
+            # Matière Français ou philosophie
+            while True:
+                note_francais_c = float(input("Note en Français ou philosophie : "))
+                if 0 <= note_francais_c <= 20:
+                    break
+                print("Erreur : La note doit être entre 0 et 20.")
+            coeff_francais_c = 2
+            moyenne_litteraire_c += note_francais_c * coeff_francais_c
+            coeff_total_litteraire_c += coeff_francais_c
+
+            # Matière Histoire et geo
+            while True:
+                note_histoire_c = float(input("Note en Histoire-geographie : "))
+                if 0 <= note_histoire_c <= 20:
+                    break
+                print("Erreur : La note doit être entre 0 et 20.")
+            coeff_histoire_c = 2
+            moyenne_litteraire_c += note_histoire_c * coeff_histoire_c
+            coeff_total_litteraire_c += coeff_histoire_c
+
+            # Matière Langue Vivante
+            while True:
+                note_langue_c = float(input("Note en Langue Vivante : "))
+                if 0 <= note_langue_c <= 20:
+                    break
+                print("Erreur : La note doit être entre 0 et 20.")
+            coeff_langue_c = 2
+            moyenne_litteraire_c += note_langue_c * coeff_langue_c
+            coeff_total_litteraire_c += coeff_langue_c
+
+            # Calcul de la moyenne littéraire
+            moyenne_litteraire_c /= coeff_total_litteraire_c
+            moyenne_litteraire_c = round(moyenne_litteraire_c, 2)
+
+            # Calcul de la moyenne générale
+            moyenne_generale_c = (moyenne_scientifique_c + moyenne_litteraire_c) / 2
+            moyenne_generale_c = round(moyenne_generale_c, 2)
+
+            # Affichage des résultats
+            print()
+            print("Moyenne Scientifique : ", moyenne_scientifique_c)
+            print("Moyenne Littéraire : ", moyenne_litteraire_c)
+            print("Moyenne Générale : ", moyenne_generale_c)
+
+            #Les orientations de filiere C
+
+            if moyenne_generale_c >= 10:
+                print("Pour le compte de filiere scientifique :")
+                print()
+                if (note_math_c >= 10 and note_physique_c >= 12 and note_svt_c >= 12):
+                    print("Departement de la medecine ou pharmacie.")
+                if (note_math_c >= 12 and note_physique_c >= 12):
+                    print("Departement de math-info.")
+                if (note_math_c >= 10 and note_physique_c >= 14 and note_francais_c >= 10):
+                    print("Departement de Physique-chimie")
+                if (note_math_c >= 12 and note_physique_c >= 12 and note_langue_c >= 10):
+                    print("Departements de Sciences Techniques")
+                if (note_svt_c >= 14 and note_francais_c >= 10 and note_langue_c >= 9):
+                    print("Departement de Biologie.")
+                if (note_math_c >= 12 and note_physique_c >= 12):
+                    print("Departement de l'aviation civile")
+            if moyenne_generale_c >= 10:
+                print()
+                print("Pour le compte de filiere litteraire :")
+                print()
+                if (note_histoire_c >= 12 and note_francais_c >= 10):
+                    print("Departement de Geographie")
+                if (note_histoire_c >= 12 and note_francais_c >= 10):
+                    print("Departement d'Histoire.")
+                if (note_francais_c >= 12 and note_histoire_c >= 10):
+                    print("Department de Philo")
+                if (note_francais_c >= 10 and note_histoire_c >= 10):
+                    print("Department de Sociologie ou antropologie")
+                if (note_francais_c >= 12 and note_histoire_c >= 12):
+                    print("Department de Doit ou Science Politique")
+                if (note_francais_c >= 11 and note_langue_c >= 11):
+                    print("Departement de Gestion ou Economie")
+                if (note_francais_c >= 12 and note_langue_c >= 10):
+                    print(
+                        "Departments science du languages ou lettre moderne ou techniques d'information et de communication")
+                if (note_francais_c >= 14 and note_langue_c >= 12):
+                    print(
+                        "Department de planification de l'education ou curicula didactique ou psychologie ou education")
+            else:
+                print("l'eleve est admis a redoubler")
+
+
+        else:
+            if moyenne_generale_3 <10 :
+                # Affichage des résultats
+                print("Moyenne Scientifique : ", moyenne_scientifique_3)
+                print("Moyenne Littéraire : ", moyenne_litteraire_3)
+                print("Moyenne Générale : ", moyenne_generale_3)
+                print()
+                print("L'élève ne passe pas en classe supérieure.")
+    else:
+        # Affichage des résultats
+        print("Moyenne Scientifique : ", moyenne_scientifique_1)
+        print("Moyenne Littéraire : ", moyenne_litteraire_1)
+        print("Moyenne Générale : ", moyenne_generale_1)
+        print()
+        print("L'élève ne passe pas en classe supérieure.")
+
+#Pour la 2nd L
+
+else :
+    print("Veillez saisir les notes de la seconde litteraire")
+
+    # Initialisation des variables pour les moyennes et les coefficients totaux
+    moyenne_scientifique_2 = 0
+    coeff_total_scientifique_2 = 0
+    moyenne_litteraire_2 = 0
+    coeff_total_litteraire_2 = 0
+
+    print()
+    print("Saisissez les notes des matières scientifiques pour la Seconde litteraire :")
+
+    # Redemander les mêmes notes et coefficients pour la 2nd L
+    while True:
+        note_math_2 = float(input("Note en Mathématiques : "))
+        if 0 <= note_math_2 <= 20:
+            break
+        print("Erreur : La note doit être entre 0 et 20.")
+    while True:
+        coeff_math_2 = int(input("Coefficient en Mathématiques : "))
+        if coeff_math_2 > 0:
+            break
+        print("Erreur : Le coefficient doit être un nombre positif.")
+    moyenne_scientifique_2 += note_math_2 * coeff_math_2
+    coeff_total_scientifique_2 += coeff_math_2
+
+    while True:
+        note_physique_2 = float(input("Note en Physique-Chimie : "))
+        if 0 <= note_physique_2 <= 20:
+            break
+        print("Erreur : La note doit être entre 0 et 20.")
+    while True:
+        coeff_physique_2 = int(input("Coefficient en Physique-Chimie : "))
+        if coeff_physique_2 > 0:
+            break
+        print("Erreur : Le coefficient doit être un nombre positif.")
+    moyenne_scientifique_2 += note_physique_2 * coeff_physique_2
+    coeff_total_scientifique_2 += coeff_physique_2
+
+    while True:
+        note_svt_2 = float(input("Note en SVT : "))
+        if 0 <= note_svt_2 <= 20:
+            break
+        print("Erreur : La note doit être entre 0 et 20.")
+    while True:
+        coeff_svt_2 = int(input("Coefficient en SVT : "))
+        if coeff_svt_2 > 0:
+            break
+        print("Erreur : Le coefficient doit être un nombre positif.")
+    moyenne_scientifique_2 += note_svt_2 * coeff_svt_2
+    coeff_total_scientifique_2 += coeff_svt_2
+
+    # Calcul de la moyenne scientifique
+    moyenne_scientifique_2 /= coeff_total_scientifique_2
+    moyenne_scientifique_2 = round(moyenne_scientifique_2, 2)
+
+    # Deuxième boucle : Saisie des notes et coefficients pour les matières littéraires pour la 2nd L
+    print()
+    print("Saisissez les notes des matières littéraires pour la seconde littéraire :")
+
+    # Matière Français
+    while True:
+        note_francais_2 = float(input("Note en Français : "))
+        if 0 <= note_francais_2 <= 20:
+            break
+        print("Erreur : La note doit être entre 0 et 20.")
+    while True:
+        coeff_francais_2 = int(input("Coefficient en Français : "))
+        if coeff_francais_2 > 0:
+            break
+        print("Erreur : Le coefficient doit être un nombre positif.")
+    moyenne_litteraire_2 += note_francais_2 * coeff_francais_2
+    coeff_total_litteraire_2 += coeff_francais_2
+
+    # Matière Histoire et geographie
+    while True:
+        note_histoire_2 = float(input("Note en Histoire et geographie : "))
+        if 0 <= note_histoire_2 <= 20:
+            break
+        print("Erreur : La note doit être entre 0 et 20.")
+    while True:
+        coeff_histoire_2 = int(input("Coefficient en Histoire : "))
+        if coeff_histoire_2 > 0:
+            break
+        print("Erreur : Le coefficient doit être un nombre positif.")
+    moyenne_litteraire_2 += note_histoire_2 * coeff_histoire_2
+    coeff_total_litteraire_2 += coeff_histoire_2
+
+    # Matière Langue Vivante
+    while True:
+        note_langue_2 = float(input("Note en Langue Vivante : "))
+        if 0 <= note_langue_2 <= 20:
+            break
+        print("Erreur : La note doit être entre 0 et 20.")
+    while True:
+        coeff_langue_2 = int(input("Coefficient en Langue Vivante : "))
+        if coeff_langue_2 > 0:
+            break
+        print("Erreur : Le coefficient doit être un nombre positif.")
+    moyenne_litteraire_2 += note_langue_2 * coeff_langue_2
+    coeff_total_litteraire_2 += coeff_langue_2
+
+    # Calcul de la moyenne littéraire
+    moyenne_litteraire_2 /= coeff_total_litteraire_2
+    moyenne_litteraire_2 = round(moyenne_litteraire_2, 2)
+
+    # Calcul de la moyenne générale
+    moyenne_generale_2 = (moyenne_scientifique_2 + moyenne_litteraire_2) / 2
+    moyenne_generale_2 = round(moyenne_generale_2, 2)
+
+    # Affichage des résultats
+    print()
+    print("Moyenne Générale : ", moyenne_generale_2)
+
+    #Pour la 1ère L
+
+    if moyenne_generale_2 >=10 :
+        # Initialisation des variables pour les moyennes et les coefficients totaux
+        moyenne_scientifique_4 = 0
+        coeff_total_scientifique_4 = 0
+        moyenne_litteraire_4 = 0
+        coeff_total_litteraire_4 = 0
+
+        print()
+        print("L'élève est admis avec succès en classe de Première Littéraire.")
+        print()
+        print("Saisissez les notes des matières scientifiques pour la prémière litteraire :")
+
+        # Redemander les mêmes notes et coefficients pour la 1ère L
+        while True:
+            note_math_4 = float(input("Note en Mathématiques : "))
+            if 0 <= note_math_4 <= 20:
+                break
+            print("Erreur : La note doit être entre 0 et 20.")
+        while True:
+            coeff_math_4 = int(input("Coefficient en Mathématiques : "))
+            if coeff_math_4 > 0:
+                break
+            print("Erreur : Le coefficient doit être un nombre positif.")
+        moyenne_scientifique_4 += note_math_4 * coeff_math_4
+        coeff_total_scientifique_4 += coeff_math_4
+
+        while True:
+            note_physique_4 = float(input("Note en Physique-Chimie : "))
+            if 0 <= note_physique_4 <= 20:
+                break
+            print("Erreur : La note doit être entre 0 et 20.")
+        while True:
+            coeff_physique_4 = int(input("Coefficient en Physique-Chimie : "))
+            if coeff_physique_4 > 0:
+                break
+            print("Erreur : Le coefficient doit être un nombre positif.")
+        moyenne_scientifique_4 += note_physique_4 * coeff_physique_4
+        coeff_total_scientifique_4 += coeff_physique_4
+
+        while True:
+            note_svt_4 = float(input("Note en SVT : "))
+            if 0 <= note_svt_4 <= 20:
+                break
+            print("Erreur : La note doit être entre 0 et 20.")
+        while True:
+            coeff_svt_4 = int(input("Coefficient en SVT : "))
+            if coeff_svt_4 > 0:
+                break
+            print("Erreur : Le coefficient doit être un nombre positif.")
+        moyenne_scientifique_4 += note_svt_4 * coeff_svt_4
+        coeff_total_scientifique_4 += coeff_svt_4
+
+        # Calcul de la moyenne scientifique
+        moyenne_scientifique_4 /= coeff_total_scientifique_4
+        moyenne_scientifique_4 = round(moyenne_scientifique_4, 2)
+
+        #Saisie des notes et coefficients pour les matières littéraires pour la 1ère L
+        print()
+        print("Saisissez les notes des matières littéraires pour la première littéraire :")
+
+        # Matière Français
+        while True:
+            note_francais_4 = float(input("Note en Français : "))
+            if 0 <= note_francais_4 <= 20:
+                break
+            print("Erreur : La note doit être entre 0 et 20.")
+        while True:
+            coeff_francais_4 = int(input("Coefficient en Français : "))
+            if coeff_francais_4 > 0:
+                break
+            print("Erreur : Le coefficient doit être un nombre positif.")
+        moyenne_litteraire_4 += note_francais_4 * coeff_francais_4
+        coeff_total_litteraire_4 += coeff_francais_4
+
+        # Matière Histoire et geographie
+        while True:
+            note_histoire_4 = float(input("Note en Histoire-geographie : "))
+            if 0 <= note_histoire_4 <= 20:
+                break
+            print("Erreur : La note doit être entre 0 et 20.")
+        while True:
+            coeff_histoire_4 = int(input("Coefficient en Histoire-geographie: "))
+            if coeff_histoire_4 > 0:
+                break
+            print("Erreur : Le coefficient doit être un nombre positif.")
+        moyenne_litteraire_4 += note_histoire_4 * coeff_histoire_4
+        coeff_total_litteraire_4 += coeff_histoire_4
+
+        # Matière philosophie
+        while True:
+            note_philo_4 = float(input("Note en Philosophie : "))
+            if 0 <= note_philo_4 <= 20:
+                break
+            print("Erreur : La note doit être entre 0 et 20.")
+        while True:
+            coeff_philo_4 = int(input("Coefficient en Philosophie : "))
+            if coeff_philo_4 > 0:
+                break
+            print("Erreur : Le coefficient doit être un nombre positif.")
+        moyenne_litteraire_4 += note_philo_4 * coeff_philo_4
+        coeff_total_litteraire_4 += coeff_philo_4
+
+        # Matière Langue Vivante
+        while True:
+            note_langue_4 = float(input("Note en Langue Vivante : "))
+            if 0 <= note_langue_4 <= 20:
+                break
+            print("Erreur : La note doit être entre 0 et 20.")
+        while True:
+            coeff_langue_4 = int(input("Coefficient en Langue Vivante : "))
+            if coeff_langue_4 > 0:
+                break
+            print("Erreur : Le coefficient doit être un nombre positif.")
+        moyenne_litteraire_4 += note_langue_4 * coeff_langue_4
+        coeff_total_litteraire_4 += coeff_langue_4
+
+        # Calcul de la moyenne littéraire
+        moyenne_litteraire_4 /= coeff_total_litteraire_4
+        moyenne_litteraire_4 = round(moyenne_litteraire_4, 2)
+
+        # Calcul de la moyenne générale
+        moyenne_generale_4 = (moyenne_scientifique_4 + moyenne_litteraire_4) / 2
+        moyenne_generale_4 = round(moyenne_generale_4, 2)
+
+        # Affichage des résultats
+        print()
+        print("Moyenne Générale : ", moyenne_generale_4)
+
+        #Pour le cas de TA4
+
+        if moyenne_generale_4 >= 10:
+            print()
+            print("L'élève est admis avec succès en classe de terminale A4.")
+
+            # Initialisation des variables pour les moyennes et les coefficients totaux
+
+            moyenne_gen_a = 0
+            coeff_gen = 0
+            # Demander les notes et coefficients de la 2nde S
+            print()
+            print("Saisissez les notes du baccalaureat serie A :")
+
+            # Mathématique
+            while True:
+                note_math_a = float(input("Note en Mathématiques : "))
+                if 0 <= note_math_a <= 20:
+                    break
+                print("Erreur : La note doit être entre 0 et 20.")
+            coeff_math_a = 2
+            # moyenne_scientifique_a += note_math_a * coeff_math_a
+            # coeff_total_scientifique_a += coeff_math_a
+            moyenne_gen_a = note_math_a * coeff_math_a
+            coeff_gen += coeff_math_a
+
+            # Philosophie
+            while True:
+                note_philo_a = float(input("Note en Philosophie : "))
+                if 0 <= note_philo_a <= 20:
+                    break
+                print("Erreur : La note doit être entre 0 et 20.")
+            coeff_philo_a = 4
+            moyenne_gen_a += note_philo_a * coeff_philo_a
+            coeff_gen += coeff_philo_a
+
+            # Matière Français
+            while True:
+                note_francais_a = float(input("Note en Français : "))
+                if 0 <= note_francais_a <= 20:
+                    break
+                print("Erreur : La note doit être entre 0 et 20.")
+            coeff_francais_a = 4
+            moyenne_gen_a += note_francais_a * coeff_francais_a
+            coeff_gen += coeff_francais_a
+
+            # Matière Histoire et geo
+            while True:
+                note_histoire_a = float(input("Note en Histoire-geographie : "))
+                if 0 <= note_histoire_a <= 20:
+                    break
+                print("Erreur : La note doit être entre 0 et 20.")
+            coeff_histoire_a = 4
+            moyenne_gen_a += note_histoire_a * coeff_histoire_a
+            coeff_gen += coeff_histoire_a
+
+            # Matière Langue Vivante
+            while True:
+                note_langue_a = float(input("Note en Langue Vivante : "))
+                if 0 <= note_langue_a <= 20:
+                    break
+                print("Erreur : La note doit être entre 0 et 20.")
+            coeff_langue_a = 4
+            moyenne_gen_a += note_langue_a * coeff_langue_a
+            coeff_gen += coeff_langue_a
+
+            # Calcul de la moyenne générale
+            moyenne_generale_a = moyenne_gen_a / coeff_gen
+            moyenne_generale_a = round(moyenne_generale_a, 2)
+            print()
+            print("Moyenne Générale : ", moyenne_generale_a)
+
+            #Pour les cas de filières litteraires
+            if moyenne_gen_a >= 10:
+                print()
+                if (note_histoire_a >= 12 and note_philo_a >= 10 and note_math_a >= 10):
+                    print("Departement de Geographie")
+                if (note_histoire_a >= 12 and note_philo_a >= 10 and note_francais_a >= 10):
+                    print("Departement d'Histoire.")
+                if (note_philo_a >= 12 and note_francais_a >= 10 and note_histoire_a >= 10):
+                    print("Departement de Philosophie.")
+                if (note_francais_a >= 10 and note_philo_a >= 10 and note_histoire_a >= 10):
+                    print("Departement de Sociologie ou anthropologie")
+                if (note_philo_a >= 12 and note_francais_a >= 12 and note_histoire_a >= 12):
+                    print("Departement de Droit ou Science Politique")
+                if (note_math_a >= 13 and note_francais_a >= 11 and note_langue_a >= 11):
+                    print("Departement de Gestion ou Economie")
+                if (note_francais_a >= 12 and note_philo_a >= 10 and note_langue_a >= 10):
+                    print("Departments science du languages ou lettre moderne ou techniques d'information et de communication")
+                if (note_francais_a >= 14 and note_philo_a >= 12 and note_langue_a >= 12 and note_math_a >= 9):
+                    print("Department de planification de l'education ou curicula didactique ou psychologie ou education")
+            else:
+                print("l'élève est admis a redoubler")
+        else:
+            print("L'élève est admis a redoubler.")
+    else:
+        print("L'élève est admis a redoubler.")
+
+        </code></pre>
+      </div>
+      <div class="projet">
+        <div class="titre-projet"><i class="fas fa-c"></i> Feu tricolore (C)</div>
+        <div>Simulation console d’un feu tricolore en C les indications sont colorées selon le feu.</div>
+        <button class="bouton-code" onclick="toggleCode(this)">Voir le code</button>
+        <pre class="zone-code"><code>
+#include stdio.h
+#include unistd.h
+int main(){
+	int couleur=1;
+	while(couleur){
+		switch(couleur){
+			case 1:
+				printf("\033[32m feu vert\033[0m\n");
+				sleep(5);
+				couleur=2;
+				break;
+			case 2:
+				printf("\033[33m feu orange \033[0m\n");
+				sleep(5);
+				couleur=3;
+				break;
+			case 3:
+				printf("\033[31m feu Rouge\033[0m\n\n\n");
+				sleep(5);
+				couleur=1;
+				break;
+			default:
+				printf(" feu  introuvable");
+				break;				
+		}
+	}
+	return 0;
+}
+
+        </code></pre>
+      </div>
+      <div class="projet">
+        <div class="titre-projet"><i class="fas fa-c"></i> Jeu de Serpent (C)</div>
+        <div>Avec le même interface graphique que celle de python,simple du jeu du serpent en C.</div>
+        <button class="bouton-code" onclick="toggleCode(this)">Voir le code</button>
+        <pre class="zone-code"><code>
+#include SDL2/SDL.h
+#include SDL2/SDL_ttf.h
+#include stdbool.h
+#include stdlib.h
+#include time.h
+#include stdio.h
+
+#define WIDTH 600
+#define HEIGHT 400
+#define SNAKE_BLOCK 10
+#define SNAKE_SPEED 5
+
+typedef struct {
+    int x;
+    int y;
+} Point;
+
+SDL_Color white = {255, 255, 255, 255};
+SDL_Color yellow = {255, 255, 102, 255};
+SDL_Color black = {0, 0, 0, 255};
+SDL_Color red = {213, 50, 80, 255};
+SDL_Color green = {0, 255, 0, 255};
+SDL_Color blue = {50, 153, 213, 255};
+
+void render_snake(SDL_Renderer* renderer, Point snake[], int length) {
+    for (int i = 0; i < length; i++) {
+        SDL_Rect rect = {snake[i].x, snake[i].y, SNAKE_BLOCK, SNAKE_BLOCK};
+        SDL_SetRenderDrawColor(renderer, black.r, black.g, black.b, black.a);
+        SDL_RenderFillRect(renderer, &rect);
+    }
+}
+
+void render_score(SDL_Renderer* renderer, int score) {
+    TTF_Font* font = TTF_OpenFont("arial.ttf", 20);
+    if (!font) {
+        printf("Erreur chargement police: %s\n", TTF_GetError());
+        return;
+    }
+    
+    char score_text[50];
+    snprintf(score_text, sizeof(score_text), "Score: %d", score);
+    
+    SDL_Surface* surface = TTF_RenderText_Solid(font, score_text, white);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+    
+    SDL_Rect rect = {10, 10, surface->w, surface->h};
+    SDL_RenderCopy(renderer, texture, NULL, &rect);
+    
+    SDL_FreeSurface(surface);
+    SDL_DestroyTexture(texture);
+    TTF_CloseFont(font);
+}
+
+void game_loop() {
+    SDL_Init(SDL_INIT_VIDEO);
+    TTF_Init();
+    
+    SDL_Window* window = SDL_CreateWindow("Snake Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, 0);
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    
+    bool game_over = false;
+    bool game_close = false;
+    
+    int x1 = WIDTH / 2;
+    int y1 = HEIGHT / 2;
+    int x1_change = 0;
+    int y1_change = 0;
+    
+    Point snake[1000]; // Taille maximale du serpent
+    int length_of_snake = 1;
+    int score = 0;
+    
+    srand(time(NULL));
+    int foodx = (rand() % (WIDTH - SNAKE_BLOCK)) / 10 * 10;
+    int foody = (rand() % (HEIGHT - SNAKE_BLOCK)) / 10 * 10;
+    
+    while (!game_over) {
+        while (game_close) {
+            SDL_SetRenderDrawColor(renderer, blue.r, blue.g, blue.b, blue.a);
+            SDL_RenderClear(renderer);
+            
+            TTF_Font* font = TTF_OpenFont("bahnschrift.ttf", 25);
+            if (!font) {
+                printf("Erreur chargement police: %s\n", TTF_GetError());
+                return;
+            }
+            
+            char message[100];
+            snprintf(message, sizeof(message), "Score: %d - You Lost! Press C-Play Again or Q-Quit", score);
+            
+            SDL_Surface* surface = TTF_RenderText_Solid(font, message, red);
+            SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+            
+            SDL_Rect rect = {WIDTH / 6, HEIGHT / 3, surface->w, surface->h};
+            SDL_RenderCopy(renderer, texture, NULL, &rect);
+            
+            SDL_FreeSurface(surface);
+            SDL_DestroyTexture(texture);
+            TTF_CloseFont(font);
+            
+            SDL_RenderPresent(renderer);
+            
+            SDL_Event event;
+            while (SDL_PollEvent(&event)) {
+                if (event.type == SDL_QUIT) {
+                    game_over = true;
+                    game_close = false;
+                }
+                if (event.type == SDL_KEYDOWN) {
+                    if (event.key.keysym.sym == SDLK_q) {
+                        game_over = true;
+                        game_close = false;
+                    }
+                    if (event.key.keysym.sym == SDLK_c) {
+                        game_close = false;
+                        // Réinitialiser le jeu
+                        x1 = WIDTH / 2;
+                        y1 = HEIGHT / 2;
+                        x1_change = 0;
+                        y1_change = 0;
+                        length_of_snake = 1;
+                        score = 0;
+                        foodx = (rand() % (WIDTH - SNAKE_BLOCK)) / 10 * 10;
+                        foody = (rand() % (HEIGHT - SNAKE_BLOCK)) / 10 * 10;
+                    }
+                }
+            }
+        }
+        
+        SDL_Event event;
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                game_over = true;
+            }
+            if (event.type == SDL_KEYDOWN) {
+                switch (event.key.keysym.sym) {
+                    case SDLK_LEFT:
+                        x1_change = -SNAKE_BLOCK;
+                        y1_change = 0;
+                        break;
+                    case SDLK_RIGHT:
+                        x1_change = SNAKE_BLOCK;
+                        y1_change = 0;
+                        break;
+                    case SDLK_UP:
+                        y1_change = -SNAKE_BLOCK;
+                        x1_change = 0;
+                        break;
+                    case SDLK_DOWN:
+                        y1_change = SNAKE_BLOCK;
+                        x1_change = 0;
+                        break;
+                }
+            }
+        }
+        
+        if (x1 >= WIDTH || x1 < 0 || y1 >= HEIGHT || y1 < 0) {
+            game_close = true;
+        }
+        
+        x1 += x1_change;
+        y1 += y1_change;
+        
+        SDL_SetRenderDrawColor(renderer, blue.r, blue.g, blue.b, blue.a);
+        SDL_RenderClear(renderer);
+        
+        SDL_Rect food = {foodx, foody, SNAKE_BLOCK, SNAKE_BLOCK};
+        SDL_SetRenderDrawColor(renderer, green.r, green.g, green.b, green.a);
+        SDL_RenderFillRect(renderer, &food);
+        
+        Point head = {x1, y1};
+        for (int i = length_of_snake - 1; i > 0; i--) {
+            snake[i] = snake[i-1];
+        }
+        snake[0] = head;
+        
+        for (int i = 1; i < length_of_snake; i++) {
+            if (snake[i].x == head.x && snake[i].y == head.y) {
+                game_close = true;
+            }
+        }
+        
+        render_snake(renderer, snake, length_of_snake);
+        render_score(renderer, score);
+        SDL_RenderPresent(renderer);
+        
+        if (x1 == foodx && y1 == foody) {
+            foodx = (rand() % (WIDTH - SNAKE_BLOCK)) / 10 * 10;
+            foody = (rand() % (HEIGHT - SNAKE_BLOCK)) / 10 * 10;
+            length_of_snake++;
+            score += 10; // Augmente le score de 10 à chaque nourriture mangée
+        }
+        
+        SDL_Delay(1000 / SNAKE_SPEED);
+    }
+    
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    TTF_Quit();
+    SDL_Quit();
+}
+
+int main(int argc, char* argv[]) {
+    game_loop();
+    return 0;
+}
+        </code></pre>
+      </div>
+      <div class="projet">
+        <div class="titre-projet"><i class="fab fa-html5"></i> Boutique en ligne (Web)</div>
+        <div>Site e-commerce moderne (HTML/CSS/JS, responsive).</div>
+        <a href="https://brahim-saleh.github.io/entreprise_aguide/" class="lien-visite-site" target="_blank">Visiter le site</a>
+      </div>
+      <div class="projet">
+        <div class="titre-projet"><i class="fab fa-html5"></i> Galerie d’œuvres d’art (Web)</div>
+        <div>Présentation interactive d’œuvres d’art en ligne.</div>
+        <a href="https://ma-galerie-art.com" class="lien-visite-site" target="_blank">Visiter le site</a>
+      </div>
+          
+         <div class="projet">
+        <div class="titre-projet"><i class="fab fa-html5"></i> ADETIC(Web)</div>
+        <div>Présentation D'ADETIC comme projet.</div>
+        <a href="https://nourrf.netlify.app/" class="lien-visite-site" target="_blank">Visiter le site</a>
+      </div>
+          
+       <div class="projet">
+        <div class="titre-projet"><i class="fab fa-html5"></i>La cuisine Chez Hadje Haoua (Web)</div>
+        <div> cuisine de toute sorte passer vos commande, vous serrez rassurer c'est la main sûre!..</div>
+        <a href="https://senoussizamzam.github.io/zamzam/" class="lien-visite-site" target="_blank">Visiter le site</a>
+      </div>
+          
+         <div class="projet">
+        <div class="titre-projet"><i class="fab fa-html5"></i>L'Islam(Web)</div>
+        <div>Présentation et la beauté de de la réligion musulmane avec Oumkalsoum</div>
+        <a href="https://oummoucool.github.io/Mon-1er-site/" class="lien-visite-site" target="_blank">Visiter le site</a>
+      </div> 
+          
+       <div class="projet">
+        <div class="titre-projet"><i class="fab fa-html5"></i>Royale Touche Barber (Web)</div>
+        <div>Et Bienvenu dans le Salon Royale Touche Barber, là où les vieux deviennent jeune, c'est une oeuvre de qualité.</div>
+        <a href="https://ganisouleyman.github.io/Safiaabdemkerim/" class="lien-visite-site" target="_blank">Visiter le site</a>
+      </div>
+          
+        <div class="projet">
+        <div class="titre-projet"><i class="fab fa-html5"></i>Montre et Parfum (Web)</div>
+        <div>En fin, le Boutique de luxe.Toutes les montres de luxe et de qualités y sont feminin comme masculin</div>
+        <a href="https://ganisouleyman.github.io/Ganisouleyman-/" class="lien-visite-site" target="_blank">Visiter le site</a>
+      </div>   
+          
+    </section>
+      <section id="projets-encours">
+  <h2 class="titre-section">Projets en cours</h2>
+  <div class="projets-grid">
+    <div class="projet-card">
+      <div class="projet-image">
+        <i class="fas fa-vote-yea fa-3x" style="color:#37f3ff"></i>
+      </div>
+      <div class="projet-content">
+        <span class="projet-langage">Python/Flask</span>
+        <h3>Gestion des Élections</h3>
+        <p>Application web Flask pour la gestion transparente des processus électoraux.</p>
+        <p><strong>Technologies&nbsp;:</strong> Python, Flask, HTML/CSS, JavaScript</p>
+      </div>
+    </div>
+    <div class="projet-card">
+      <div class="projet-image">
+        <i class="fas fa-graduation-cap fa-3x" style="color:#1e90ff"></i>
+      </div>
+      <div class="projet-content">
+        <span class="projet-langage">Python/SQL</span>
+        <h3>Gestion de Notes</h3>
+        <p>Système complet de gestion des notes académiques pour établissements.</p>
+        <p><strong>Technologies&nbsp;:</strong> Python, Base de données</p>
+      </div>
+    </div>
+    <!-- Ajoute ici d'autres projets en cours si besoin -->
+  </div>
+</section>
+    <section id="liens">
+      <h2 class="titre-section">Liens à visiter</h2>
+      <ul>
+        <li><a href="https://github.com/Djamalyassirmahamat" target="_blank" class="lien-visite-site"><i class="fab fa-github"></i> Mon GitHub</a></li>
+        <li><a href="https://ganisouleyman.github.io/Ganisouleyman-/" target="_blank" class="lien-visite-site"><i class="fas fa-store"></i> Ma Boutique en ligne</a></li>
+        <li><a href="https://ma-galerie-art.com" target="_blank" class="lien-visite-site"><i class="fas fa-palette"></i> Ma galerie d’art</a></li>
+      </ul>
+    </section>
+    <section id="contact">
+      <h2 class="titre-section">Contact</h2>
+      <form class="form-contact" action="mailto:tonadresse@email.com" method="POST" enctype="text/plain">
+        <input type="text" name="nom" placeholder="Votre nom" required>
+        <input type="email" name="email" placeholder="Votre adresse email" required>
+        <textarea name="message" rows="4" placeholder="Votre message" required></textarea>
+        <button type="submit"><i class="fas fa-paper-plane"></i> Envoyer</button>
+      </form>
+      <div style="margin-top:1.4em;color:var(--bleu-lumineux);font-size:1.06em;">
+        Ou écrivez-moi directement : 
+        <a href="mailto:djamalyassirmahamat@gmail.com" style="color:var(--bleu-lumineux)">djamalyassirmahamat@gmail.com</a>
+      </div>
+    </section>
+    <footer>
+      <div class="footer-reseaux">
+        <a href="https://www.linkedin.com/in/djamal-yassir-mahamat-64537a373?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="footer-reseau"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/Djamalyassirmahamat" class="footer-reseau"><i class="fab fa-github"></i></a>
+        <a href="https://www.instagram.com/yassdjamal?igsh=MThtZmhubTF2NXMxbg==" class="footer-reseau"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@djamalyassir?_t=ZM-8xrSeOpNsvQ&_r=1" class="footer-reseau"><i class="fab fa-tiktok"></i></a>
+        <a href="https://www.facebook.com/djamal.yass.79" class="footer-reseau"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.snapchat.com/add/djamal-yassir?share_id=13gKq_0U6fQ&locale=fr-TD" class="footer-reseau"><i class="fab fa-snapchat-ghost"></i></a>
+        <a href="https://t.me/DjamalYassirMahamat" class="footer-reseau"><i class="fab fa-telegram"></i></a>
+        <a href="https://wa.me/23561169734" class="footer-reseau" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <p>Email: djamalyassirmahamat@gmail.com</p>
+      <p>© 2025 Djamal Y. Mahamat. Tous droits réservés.</p>
+    </footer>
+  </main>
+  <script>
+    // Menu burger
+    const burger = document.getElementById('burger');
+    const nav = document.getElementById('nav');
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('active');
+      nav.classList.toggle('ferme');
+      nav.classList.toggle('ouvert');
+    });
+    // Fermer le menu si on clique sur un lien
+    document.querySelectorAll('.lien-navigation').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.add('ferme');
+        nav.classList.remove('ouvert');
+        burger.classList.remove('active');
+      });
+    });
+    // Animation de frappe des rôles
+    const roles = [
+      "Programmeur Python",
+      "Développeur Web",
+      "Développeur C",
+      "Créateur d’applications",
+      "Étudiant passionné"
+    ];
+    let roleIndex = 0, charIndex = 0, isDeleting = false;
+    function typeRoles() {
+      const el = document.getElementById('animation-roles');
+      if (isDeleting) {
+        if (charIndex > 0) {
+          el.textContent = roles[roleIndex].substring(0, --charIndex);
+        } else {
+          isDeleting = false;
+          roleIndex = (roleIndex + 1) % roles.length;
+        }
+      } else {
+        if (charIndex < roles[roleIndex].length) {
+          el.textContent = roles[roleIndex].substring(0, ++charIndex);
+        } else {
+          isDeleting = true;
+          setTimeout(typeRoles, 1100);
+          return;
+        }
+      }
+      setTimeout(typeRoles, isDeleting ? 35 : 80);
+    }
+    typeRoles();
+    // Afficher/masquer le code
+    function toggleCode(btn) {
+      const code = btn.nextElementSibling;
+      code.classList.toggle('visible');
+      btn.textContent = code.classList.contains('visible') ? 'Masquer le code' : 'Voir le code';
+    }
+    // Barre active sur navigation
+    window.addEventListener('scroll', () => {
+      const liensNav = document.querySelectorAll('.lien-navigation');
+      const sections = Array.from(document.querySelectorAll('section'));
+      let scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
+      let index = sections.findIndex((section, i) =>
+        scrollPosition+110 < section.offsetTop + section.offsetHeight &&
+        scrollPosition+110 >= section.offsetTop
+      );
+      if (index === -1) index = 0;
+      liensNav.forEach(l => l.classList.remove('active'));
+      liensNav[index].classList.add('active');
+    });
+  </script>
+</body>
+</html>
