@@ -102,6 +102,15 @@
       padding: 46px 6vw 32px 6vw;
       box-shadow: 0 6px 36px #0a0a2a44;
     }
+    
+    section:hover{
+      box-shadow:0 5px 5px 5px white;
+      tansition: transform 1s ease;
+    }
+  section{
+    transform:translateY(12px);
+  }
+
     section.heros {
       background: linear-gradient(95deg, var(--bleu) 0 8%, var(--bleu-fonce) 60%);
       box-shadow: 0 0 70px 12px var(--bleu) inset;
@@ -314,6 +323,15 @@
       nav.ouvert { left: 0;}
       .logo { font-size: 1em; left: 18px;}
     }
+
+    @media (max-width:550px){
+   .ferme{
+     width:0;
+   }
+  .competence{
+    display:flex;
+    flew-flow: row wrap;}
+  }
   </style>
 </head>
 <body>
